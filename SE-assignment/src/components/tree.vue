@@ -1,19 +1,8 @@
 <template>
   <div id="tree-box">
 </div>
-  
 </template>
 <style>
-  .g6-tooltip {
-    display: none;
-    border: 1px solid #e2e2e2;
-    border-radius: 4px;
-    font-size: 8px;
-    color: #545454;
-    background-color: rgba(255, 255, 255, 0.9);
-    padding: 20px 10px;
-    box-shadow: rgb(174, 174, 174) 0px 0px 10px;
-  }
 </style>
 <script>
 import G6 from "@antv/g6";
@@ -54,12 +43,6 @@ export default {
             {
               type: "collapse-expand" 
             },
-            {
-        type: 'tooltip',
-        formatText: function formatText(model) {
-          return model.label;
-        }
-    },
             "drag-canvas",
             "zoom-canvas"
           ]
@@ -85,27 +68,13 @@ export default {
           }
         }
       });
-       function clearAllStats() {
-    graph.setAutoPaint(false);
-    graph.getNodes().forEach(function(node) {
-      graph.clearItemStates(node);
-    });
-    graph.getEdges().forEach(function(edge) {
-      graph.clearItemStates(edge);
-    });
-    graph.paint();
-    graph.setAutoPaint(true);
-  }
-       graph.on('node:mouseenter', e=> {
+       graph.on('node:contextmenu', e=> {
          let name=e.item._cfg.model.label;
-         
          if(name.indexOf("博士生")!=-1||name.indexOf("硕士生")!=-1||name.indexOf("本科生")!=-1||name.indexOf("级")!=-1)return;
     else{
-    graph.paint();
-    graph.setAutoPaint(true);
+    alert("姓名:"+name+"\n获奖情况：。。。。。。"+"\n联系方式：。。。。。。");
     }
   });
-   graph.on('node:mouseleave', clearAllStats);
       graph.node(function(node) {
         return {
           size: 20,
