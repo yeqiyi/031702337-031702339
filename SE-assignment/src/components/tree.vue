@@ -1,9 +1,8 @@
 <template>
   <div id="tree-box">
-</div>
+    
+  </div>
 </template>
-<style>
-</style>
 <script>
 import G6 from "@antv/g6";
 export default {
@@ -21,8 +20,9 @@ export default {
     let data=JSON.parse(this.$route.query.data);
     for(var i=0;i<data.length;++i){
       var container=document.createElement("div");
-      container.style.width="1000px";
-      container.style.height="800px"; 
+      container.style.width="800px";
+      container.style.height="600px"; 
+      container.style.border="solid";
       var box=document.createElement("div");
       box.id="tree"+i
       container.appendChild(box)
@@ -34,8 +34,8 @@ export default {
     initG6(data,name) {
       const graph = new G6.TreeGraph({
         container: name,
-        width: window.innerWidth,
-        height: window.innerHeight,
+        width:800,
+        height:600,
         center:[1000,100],
        
         modes: {
@@ -62,19 +62,25 @@ export default {
           }
         },
         defaultEdge: {
+          
           shape: "cubic-horizontal",
           style: {
             stroke: "break"
           }
         }
       });
-       graph.on('node:contextmenu', e=> {
-         let name=e.item._cfg.model.label;
-         if(name.indexOf("博士生")!=-1||name.indexOf("硕士生")!=-1||name.indexOf("本科生")!=-1||name.indexOf("级")!=-1)return;
-    else{
-    alert("姓名:"+name+"\n获奖情况：。。。。。。"+"\n联系方式：。。。。。。");
-    }
-  });
+      graph.on("node:contextmenu", ev => {
+        let name=ev.item._cfg.model.label;
+        if(name.indexOf("博士生")!=-1)return;
+        if(name.indexOf("硕士生")!=-1)return;
+        if(name.indexOf("本科生")!=-1)return;
+        this.$router.push({
+          path:'info',
+          query:{
+            data:JSON.stringify(ev.item._cfg.model)
+          }
+        })
+      });
       graph.node(function(node) {
         return {
           size: 20,
@@ -107,3 +113,18 @@ export default {
   
 };
 </script>
+<style scoped>
+body{
+  /* background:antiquewhite; */
+  /* background-image:url("../assets/2.jpg");
+  background-size:cover; */
+}
+#app{
+  /* background:antiquewhite */
+}
+#tree-bod{
+  /* width:100%;
+  height:100%;
+  background:antiquewhite */
+}
+</style>
