@@ -69,18 +69,14 @@ export default {
           }
         }
       });
-      graph.on("node:contextmenu", ev => {
-        let name=ev.item._cfg.model.label;
-        if(name.indexOf("博士生")!=-1)return;
-        if(name.indexOf("硕士生")!=-1)return;
-        if(name.indexOf("本科生")!=-1)return;
-        this.$router.push({
-          path:'info',
-          query:{
-            data:JSON.stringify(ev.item._cfg.model)
-          }
-        })
-      });
+      graph.on('node:contextmenu', e=> {
+         let name=e.item._cfg.model.label;
+         if(name.indexOf("博士生")!=-1||name.indexOf("硕士生")!=-1||name.indexOf("本科生")!=-1||name.indexOf("级")!=-1)return;
+    else{
+    
+    alert("姓名:"+name+"\n获奖情况：。。。。。。"+"\n联系方式：。。。。。。");
+    }
+  });
       graph.node(function(node) {
         return {
           size: 20,
