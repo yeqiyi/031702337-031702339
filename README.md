@@ -12,6 +12,10 @@ npm install
 npm run dev
 ```
 更新
+
+可将将项目打包，克隆项目后进入文件夹输入命令：
 ```
-先已将项目打包，克隆项目后进入dist文件夹，在vscode中open with live server打开index.html文件即可运行。（不能直接打开，需在服务器上运行）
+npm run build
 ```
+进入dist文件夹，在vscode中open with live server打开index.html文件即可运行。（不能直接打开，需在服务器上运行）
+
